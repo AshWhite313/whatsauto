@@ -1,0 +1,42 @@
+version: '3.8'  
+services:  
+  backend:  
+    image: node:14  
+    working_dir: /usr/src/app  
+    volumes:  
+      - ./backend:/usr/src/app  
+    ports:  
+      - '5000:5000'  
+    environment:  
+      - NODE_ENV=production  
+    command: npm start  
+
+  frontend:  
+    image: node:14  
+    working_dir: /usr/src/app  
+    volumes:  
+      - ./frontend:/usr/src/app  
+    ports:  
+      - '3000:3000'  
+    environment:  
+      - NODE_ENV=production  
+    command: npm start  
+
+  database:  
+    image: postgres:13  
+    environment:  
+      - POSTGRES_USER=your_user  
+      - POSTGRES_PASSWORD=your_password  
+      - POSTGRES_DB=your_database  
+    ports:  
+      - '5432:5432'  
+    volumes:  
+      - postgres_data:/var/lib/postgresql/data  
+
+  redis:  
+    image: redis:alpine  
+    ports:  
+      - '6379:6379'  
+
+volumes:  
+  postgres_data:  
